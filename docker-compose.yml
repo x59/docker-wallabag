@@ -7,11 +7,14 @@ services:
       - env.sh
     ports:
       - "127.0.0.1:8082:80"
+    restart: always
   db:
     image: mariadb
     env_file:
       - env.sh
     volumes:
       - ./data/mysql:/var/lib/mysql
+    restart: always
   redis:
     image: redis:alpine
+    restart: always
