@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  wallabag:
+    image: wallabag/wallabag
+    env_file:
+      - env.sh
+    ports:
+      - "127.0.0.1:8082:80"
+  db:
+    image: mariadb
+    env_file:
+      - env.sh
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+  redis:
+    image: redis:alpine
