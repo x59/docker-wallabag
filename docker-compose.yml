@@ -1,20 +1,28 @@
-version: '2'
+version: '3.3'
 
 services:
   wallabag:
-    image: wallabag/wallabag
-    env_file:
-      - env.sh
+    image: wallabag/wallabag:2.3.2
+    environment:
+      - SYMFONY__ENV__DATABASE_DRIVER
+      - SYMFONY__ENV__DATABASE_HOST
+      - SYMFONY__ENV__DATABASE_PORT
+      - SYMFONY__ENV__DATABASE_NAME
+      - SYMFONY__ENV__DATABASE_USER
+      - SYMFONY__ENV__DATABASE_PASSWORD
+      # Emails
+      - SYMFONY__ENV__MAILER_HOST
+      - SYMFONY__ENV__MAILER_USER
+      - SYMFONY__ENV__MAILER_PASSWORD
+      - SYMFONY__ENV__FROM_EMAIL
+      # Misc
+      - SYMFONY__ENV__SECRET
+      - SYMFONY__ENV__FOSUSER_REGISTRATION
+      - POPULATE_DATABASE
     ports:
       - "127.0.0.1:8082:80"
     restart: always
-  db:
-    image: mariadb
-    env_file:
-      - env.sh
-    volumes:
-      - ./data/mysql:/var/lib/mysql
-    restart: always
+  # db: is set in an external compose file
   redis:
-    image: redis:alpine
+    image: redis:4.0-alpine
     restart: always

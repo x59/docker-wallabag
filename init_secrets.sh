@@ -11,10 +11,10 @@ DB_ROOT_PASSWORD=`random-string`
 DB_PASSWORD=`random-string`
 ENV_SECRET=`random-string`
 
-cp env.sh `date +"%Y%m%d_%H%M%S"`_env.sh
+cp .env `date +"%Y%m%d_%H%M%S"`.env
 
-sed -e "s/MYSQL_ROOT_PASSWORD=.*/MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}/" \
-    -e "s/POSTGRES_PASSWORD=.*/POSTGRES_PASSWORD=${DB_ROOT_PASSWORD}/" \
-    -e "s/SYMFONY__ENV__DATABASE_PASSWORD=.*/SYMFONY__ENV__DATABASE_PASSWORD=${DB_PASSWORD}/" \
-    -e "s/SYMFONY__ENV__SECRET=.*/SYMFONY__ENV__SECRET=${ENV_SECRET}/" \
-    -i env.sh
+sed \
+    -e "s/DB_ROOT_PASSWORD=.*/DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}/" \
+    -e "s/DB_PASSWORD=.*/DB_PASSWORD=${DB_PASSWORD}/" \
+    -e "s/ENV_SECRET=.*/ENV_SECRET=${ENV_SECRET}/" \
+    env-base > .env
